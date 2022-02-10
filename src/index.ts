@@ -21,7 +21,12 @@ import {
  getProfileLocation,
  getProfileBday,
  getProfilePic,
- getProfileHeader
+ getProfileHeader,
+ getProfileWorks,
+ getProfileSeries,
+ getProfileBookmarks,
+ getProfileCollections,
+ getProfileGifts
 } from "./utils/user";
 
 import axios from "axios";
@@ -72,6 +77,11 @@ export const getUser = async ({
    location: getProfileLocation(profilePage),
    birthday: getProfileBday(profilePage),
    url: getProfileLink(userName),
+   works: getProfileWorks(profilePage),
+   series: getProfileSeries(profilePage),
+   bookmarks: getProfileBookmarks(profilePage),
+   collections: getProfileCollections(profilePage),
+   gifts: getProfileGifts(profilePage),
    bioHtml: getProfileBio(profilePage),
  };
 };

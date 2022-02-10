@@ -17,6 +17,11 @@ export interface User {
  location: string | null;
  email: string | null;
  birthday: string | null;
+ works: string | null;
+ series: string | null;
+ bookmarks: string | null;
+ collections: string | null;
+ gifts: string | null;
  bioHtml: string | null;
 }
 
@@ -75,3 +80,22 @@ export const getProfileBday = ($userProfile: UserProfile) => {
 
 //TODO: Pull information (Works/Series/Bookmarks/Collections/Gifts) from navigation actions maybe?
 
+export const getProfileWorks = ($userProfile: UserProfile) => {
+ return $userProfile("#dashboard a[href$='works']").text().trim().slice(7, -1);
+}
+
+export const getProfileSeries = ($userProfile: UserProfile) => {
+ return $userProfile("#dashboard a[href$='series']").text().trim().slice(8, -1);
+}
+
+export const getProfileBookmarks = ($userProfile: UserProfile) => {
+ return $userProfile("#dashboard a[href$='bookmarks']").text().trim().slice(11, -1);
+}
+
+export const getProfileCollections = ($userProfile: UserProfile) => {
+ return $userProfile("#dashboard a[href$='collections']").text().trim().slice(13, -1);
+}
+
+export const getProfileGifts = ($userProfile: UserProfile) => {
+ return $userProfile("#dashboard a[href$='gifts']").text().trim().slice(7, -1);
+}
