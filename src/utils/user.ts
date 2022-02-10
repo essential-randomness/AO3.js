@@ -11,6 +11,8 @@ export interface User {
  name: string;
  pseuds: string;
  url: string;
+ icon: string;
+ header: string | null;
  joined: string;
  location: string | null;
  email: string | null;
@@ -45,6 +47,14 @@ export const getProfileJoined = ($userProfile: UserProfile) => {
 export const getProfileID = ($userProfile: UserProfile) => {
  const dds = $userProfile(".meta dd:not(.email):not(dt.location+dd):not(.birthday):not(.pseuds)").text();
  return dds.slice(10);
+}
+
+export const getProfilePic = ($userProfile: UserProfile) => {
+ return $userProfile("img.icon").attr("src");
+}
+
+export const getProfileHeader = ($userProfile: UserProfile) => {
+ return $userProfile("h3.heading").text().trim().slice(15, -9);
 }
 
 export const getProfileBio = ($userProfile: UserProfile) => {

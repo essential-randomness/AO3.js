@@ -26,7 +26,9 @@ describe("Fetches id data", () => {
     id: "87",
     location: "Oakland",
     email: "fdickson@ix.netcom.com",
-    birthday: "1981-02-13"
+    birthday: "1981-02-13",
+    icon: "https://s3.amazonaws.com/otw-ao3-icons/icons/122/standard.jpg?1272552580",
+    header: "Yes, it's really spelled with a Z"
    })
   })
 
