@@ -33,20 +33,25 @@ export const getProfileName = ($userProfile: UserProfile) => {
  return $userProfile(".user.profile .header h2").text().trim();
 } 
 
+const PSEUD_AFTER = ", ";
 export const getProfilePseuds = ($userProfile: UserProfile) => {
  const pseuds = $userProfile("dd.pseuds").text().concat(", ");
- return pseuds.slice(0, -2);
+ return pseuds.slice(0, -PSEUD_AFTER.length);
 }
-// slice here prevents pseuds from getting an extra ", " at the end 
 
+//Dates are ten characters long in the following format:
+const DATE_CONTENT = "0000-00-00";
+
+//Trim the results to only the date:
 export const getProfileJoined = ($userProfile: UserProfile) => {
  const dds = $userProfile(".meta dd:not(.email, .location, .birthday, .pseuds)").text();
- return dds.slice(0, 10);
+ return dds.slice(0, DATE_CONTENT.length);
 }
-//slice here cuts the date off before it would run into the user ID
+
+//Trim the results to only content after the date:
 export const getProfileID = ($userProfile: UserProfile) => {
  const dds = $userProfile(".meta dd:not(.email):not(dt.location+dd):not(.birthday):not(.pseuds)").text();
- return dds.slice(10);
+ return dds.slice(DATE_CONTENT.length);
 }
 
 export const getProfilePic = ($userProfile: UserProfile) => {
@@ -54,7 +59,7 @@ export const getProfilePic = ($userProfile: UserProfile) => {
 }
 
 export const getProfileHeader = ($userProfile: UserProfile) => {
- return $userProfile("h3.heading").text().trim().slice(15, -9);
+ return $userProfile("div.user.home.profile > h3.heading").text().trim();
 }
 
 export const getProfileBio = ($userProfile: UserProfile) => {
