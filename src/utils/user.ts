@@ -38,20 +38,26 @@ export const getProfileName = ($userProfile: UserProfile) => {
  return $userProfile(".user.profile .header h2").text().trim();
 } 
 
+
+const PSEUD_AFTER = ", ";
 export const getProfilePseuds = ($userProfile: UserProfile) => {
  const pseuds = $userProfile("dd.pseuds").text().concat(", ");
- return pseuds.slice(0, -2);
+ return pseuds.slice(0, -PSEUD_AFTER.length);
 }
-// slice here prevents pseuds from getting an extra ", " at the end 
 
+//Dates are ten characters long in the following format:
+const DATE_CONTENT = "0000-00-00";
+
+//Trim the results to only the date:
 export const getProfileJoined = ($userProfile: UserProfile) => {
  const dds = $userProfile(".meta dd:not(.email, .location, .birthday, .pseuds)").text();
- return dds.slice(0, 10);
+ return dds.slice(0, DATE_CONTENT.length);
 }
-//slice here cuts the date off before it would run into the user ID
+
+//Trim the results to only content after the date:
 export const getProfileID = ($userProfile: UserProfile) => {
  const dds = $userProfile(".meta dd:not(.email):not(dt.location+dd):not(.birthday):not(.pseuds)").text();
- return dds.slice(10);
+ return dds.slice(DATE_CONTENT.length);
 }
 
 export const getProfilePic = ($userProfile: UserProfile) => {
@@ -59,7 +65,7 @@ export const getProfilePic = ($userProfile: UserProfile) => {
 }
 
 export const getProfileHeader = ($userProfile: UserProfile) => {
- return $userProfile("h3.heading").text().trim().slice(15, -9);
+ return $userProfile("div.user.home.profile > h3.heading").text().trim();
 }
 
 export const getProfileBio = ($userProfile: UserProfile) => {
@@ -78,24 +84,31 @@ export const getProfileBday = ($userProfile: UserProfile) => {
  return $userProfile("dd.birthday").text();
 }
 
-//TODO: Pull information (Works/Series/Bookmarks/Collections/Gifts) from navigation actions maybe?
+//Constants for trimming the navigation menu content 
+
+const STAT_SUFFIX = ")";
+const WORKS_PREFIX = "Works (";
+const SERIES_PREFIX = "Series (";
+const BOOKMARKS_PREFIX = "Bookmarks (";
+const COLLECTIONS_PREFIX = "Collections (";
+const GIFTS_PREFIX = "Gifts (";
 
 export const getProfileWorks = ($userProfile: UserProfile) => {
- return $userProfile("#dashboard a[href$='works']").text().trim().slice(7, -1);
+ return $userProfile("#dashboard a[href$='works']").text().trim().slice(WORKS_PREFIX.length, -STAT_SUFFIX.length);
 }
 
 export const getProfileSeries = ($userProfile: UserProfile) => {
- return $userProfile("#dashboard a[href$='series']").text().trim().slice(8, -1);
+ return $userProfile("#dashboard a[href$='series']").text().trim().slice(SERIES_PREFIX.length, -STAT_SUFFIX.length);
 }
 
 export const getProfileBookmarks = ($userProfile: UserProfile) => {
- return $userProfile("#dashboard a[href$='bookmarks']").text().trim().slice(11, -1);
+ return $userProfile("#dashboard a[href$='bookmarks']").text().trim().slice(BOOKMARKS_PREFIX.length, -STAT_SUFFIX.length);
 }
 
 export const getProfileCollections = ($userProfile: UserProfile) => {
- return $userProfile("#dashboard a[href$='collections']").text().trim().slice(13, -1);
+ return $userProfile("#dashboard a[href$='collections']").text().trim().slice(COLLECTIONS_PREFIX.length, -STAT_SUFFIX.length);
 }
 
 export const getProfileGifts = ($userProfile: UserProfile) => {
- return $userProfile("#dashboard a[href$='gifts']").text().trim().slice(7, -1);
+ return $userProfile("#dashboard a[href$='gifts']").text().trim().slice(GIFTS_PREFIX.length, -STAT_SUFFIX.length);
 }
