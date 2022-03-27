@@ -33,6 +33,7 @@ export const getProfileName = ($userProfile: UserProfile) => {
  return $userProfile(".user.profile .header h2").text().trim();
 } 
 
+//Trim punctuation; this allows us to remove the ", " between pseuds.
 const PSEUD_AFTER = ", ";
 export const getProfilePseuds = ($userProfile: UserProfile) => {
  const pseuds = $userProfile("dd.pseuds").text().concat(", ");
